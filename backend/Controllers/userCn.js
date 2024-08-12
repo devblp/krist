@@ -1,4 +1,4 @@
-import catchAsync from "../Utils/catchAsync";
+import catchAsync from "../Utils/catchAsync.js";
 import ApiFeatures from "../Utils/apiFeatures.js";
 import User from "../Models/userM.js";
 import HandleError from "../Utils/handleError.js";
@@ -9,7 +9,7 @@ export const getAllUser = catchAsync(async (req, res, next) => {
     ...req.query,
     fields: `${req.query.fields || ""},-password`,
   };
-  const features = await ApiFeatures(User, queryString)
+  const features = new ApiFeatures(User, queryString)
     .filters()
     .sort()
     .limitFields()
@@ -48,7 +48,7 @@ export const updateUser = catchAsync(async(req,res,next)=>{
                 user = await User.findByIdAndUpdate(id, req.body, {new:true})
             }else{
                 const {role, ...others} = req.body;
-                user = await User.findByIdAndUpdate(id, others, {new:true})
+                user = await User.findByIdAndUpdate(id, ...others, {new:true})
             }
         }else {
             return next(new HandleError("You are not allowed to do this", 401));
