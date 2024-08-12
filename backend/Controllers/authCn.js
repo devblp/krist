@@ -28,7 +28,7 @@ export const login = catchAsync(async (req, res, next) => {
 export const signup = catchAsync(async (req, res, next) => {
   const { password, role = "user", ...others } = req.body;
   const hashedPassword = bcryptjs.hashSync(password, 10);
-  const user = await User.create({ role, password: hashedPassword, others });
+  const user = await User.create({ ...others, role, password: hashedPassword,  });
   return res.status(200).json({
     status: "success",
     message: "register successfully",
@@ -77,11 +77,5 @@ export const newPassword = catchAsync(async (req, res, next) => {
   return res.status(200).json({
     status: "success",
     message: "Password changed successfully",
-    data:{
-        fullName:updatedUser.fullName,
-        email:updatedUser.email,
-        role:updatedUser.role,
-  
-      }
   })
 });
