@@ -29,9 +29,6 @@ export const getOneCategory = catchAsync(async (req, res, next) => {
 
 export const addCategory = catchAsync(async (req, res, next) => {
   const image = req?.file?.filename || "";
-  if (image == "") {
-    return next(new HandleError("image is required", 400));
-  }
   const newCategory = await Category.create({ image, ...req.body });
   return res.status(201).json({
     status: "success",
