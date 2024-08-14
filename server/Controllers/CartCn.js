@@ -9,7 +9,7 @@ export const addItemCart = catchAsync(async (req, res, next) => {
     req.headers.authorization.split(" ")[1],
     process.env.JWT_SECRET
   );
-  const { id: productId } = req.body;
+  const { productId } = req.body;
 
   const product = await Product.findById(productId);
   if (!product) {
@@ -22,7 +22,7 @@ export const addItemCart = catchAsync(async (req, res, next) => {
   let price = product.price;
   let cart = user.cart;
   cart.totalPrice += +price;
-  const add = false;
+  let add = false;
   const items = cart.items.map((e) => {
     if (e.productId == productId) {
       e.quantity += 1;
@@ -60,14 +60,14 @@ export const deletAllItemCart = catchAsync(async (req, res, next) => {
 });
 
 export const deletQountitiItemCart = catchAsync(async (req, res, next) => {
-  const { id: userId } = jwt.verify(
+  const { id:userId } = jwt.verify(
     req.headers.authorization.split(" ")[1],
     process.env.JWT_SECRET
   );
-  const { id: productId } = req.body;
+  const { productId } = req.body;
   const user = await User.findById(userId);
-  let cart = user.card;
-  let totalprice = card.totalPrice;
+  let cart = user.cart;
+  let totalprice = cart.totalPrice;
   const items = cart.items.map((item) => {
     if (item.productId == productId) {
       item.quantity -= 1;
@@ -76,7 +76,7 @@ export const deletQountitiItemCart = catchAsync(async (req, res, next) => {
         totalprice = 0;
         return false;
       }
-      return e;
+      return item;
     }
   });
   const newCart = await User.findByIdAndUpdate(
