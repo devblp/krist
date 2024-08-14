@@ -1,5 +1,6 @@
 import Comment from "../Models/commentM.js";
 import catchAsync from "../Utils/catchAsync.js";
+import jwt from "jsonwebtoken"
 
 export const addComment = catchAsync(async (req, res, next) => {
   const { id: userId } = jwt.verify(
