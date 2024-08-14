@@ -10,11 +10,10 @@ import isAdmin from "../Middleware/isAdmin.js";
 
 const productsRouter = express.Router();
 
-productsRouter.route("/").get(getAllProduct);
+productsRouter.route("/").get(getAllProduct).post(isAdmin, addProduct)
 productsRouter
   .route("/:id")
   .get(getIdProduct)
-  .post(isAdmin, addProduct)
   .patch(isAdmin, updetByIdProduct)
   .delete(isAdmin, deletByIdProduct);
 
