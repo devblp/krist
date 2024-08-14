@@ -4,8 +4,8 @@ import isLogin from "../Middleware/isLogin.js"
 
 const cartRouter = express.Router()
 
-cartRouter.route("/").patch(isLogin,addItemCart).get(isLogin,getCart).delete(isLogin,deletAllItemCart)
-cartRouter.route("/remove").patch(isLogin,deletQountitiItemCart)
+cartRouter.route("/").patch(addItemCart).get(isLogin,getCart).delete(deletAllItemCart)
+cartRouter.route("/remove").patch(deletQountitiItemCart)
 
 
 export default cartRouter
