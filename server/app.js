@@ -7,6 +7,7 @@ import authRouter from "./Routers/authR.js";
 import userRouter from "./Routers/userR.js";
 import productsRouter from "./Routers/productsR.js";
 import commentRouter from "./Routers/comment.js";
+import cartRouter from "./Routers/cartR.js";
 
 const __filename = fileURLToPath(import.meta.url)
 export const __dirname = path.dirname(__filename)
@@ -22,5 +23,6 @@ app.use("/api/v1/user",userRouter)
 app.use("/api/v1/auth",authRouter)
 app.use("/api/v1/products",productsRouter)
 app.use("/api/v1/comment",commentRouter)
+app.use("/api/v1/cart",cartRouter)
 
 export default app
