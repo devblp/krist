@@ -41,10 +41,11 @@ const productSchema = new mongoose.Schema(
       type: Number, // Number of reviews
       default: 0, // Default value is 0
     },
-    comment: {
+    comment: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment",
-    },
+      
+    },]
   },
   { timestamps: true } // Automatically add createdAt and updatedAt timestamps
 );
