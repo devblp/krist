@@ -3,6 +3,7 @@ import ApiFeatures from "../Utils/apiFeatures.js";
 import User from "../Models/userM.js";
 import HandleError from "../Utils/handleError.js";
 import jwt from "jsonwebtoken"
+import { creatNotification } from "./notificationCn.js";
 
 export const getAllUser = catchAsync(async (req, res, next) => {
   const queryString = {
@@ -53,6 +54,7 @@ export const updateUser = catchAsync(async(req,res,next)=>{
         }else {
             return next(new HandleError("You are not allowed to do this", 401));
         }
+        creatNotification(id,"alert","updet profile your")
         return res.status(200).json({
             status: "success",
             data: user,
