@@ -98,6 +98,10 @@ const userSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment',
     },
+    notifications:[{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Notification'
+    }],
     role:{
       type: String,
       enum: ['admin', 'user'],
