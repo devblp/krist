@@ -4,6 +4,7 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import HandleError from "../Utils/handleError.js";
 import { sendAuthCode, verifyCode } from "../Utils/smsHandler.js";
+import { creatNotification } from "./notificationCn.js";
 
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -73,7 +74,9 @@ export const newPassword = catchAsync(async (req, res, next) => {
   );
   const { password } = req.body;
   const hashPassword = bcryptjs.hashSync(password,10)
+  
   const updatedUser = await User.findByIdAndUpdate(id, { password: hashPassword }, { new: true });
+  creatNotification(id,"alert","forget password")
   return res.status(200).json({
     status: "success",
     message: "Password changed successfully",
