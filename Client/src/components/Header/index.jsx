@@ -19,11 +19,11 @@ export default function Header() {
       </div>
       <div>
         <ul className="flex gap-8 relative">
-          <Link href={""}>
+          <Link href={"/"}>
             <li>Home</li>
           </Link>
           <li className="flex relative">
-            <Link href={""}>Shop</Link>
+            <Link href={"/products"}>Shop</Link>
             {btnMegaMeno ? (
               <button
                 onClick={handleBtnOpenAndClose}
