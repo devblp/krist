@@ -17,9 +17,13 @@ const productSchema = new mongoose.Schema(
       required: [true, "Price Product Required"],
       trim: true,
     },
-    images: {
-      type: String, // URLs to product images
+    mainImage: {
+      type: String,
+      required: [true, "Main image is required"],
     },
+    images: [{
+      type:String
+    }],
 
     categoryId: [
       {
@@ -44,8 +48,7 @@ const productSchema = new mongoose.Schema(
     comment: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment",
-      
-    }
+    },
   },
   { timestamps: true } // Automatically add createdAt and updatedAt timestamps
 );

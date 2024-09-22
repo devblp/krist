@@ -31,8 +31,9 @@ export const getIdProduct = catchAsync(async (req, res, next) => {
 });
 
 export const addProduct = catchAsync(async (req, res, next) => {
-  const images = req?.files?.map((file) => file?.filename);
-  const newProduct = await Product.create({ ...req.body, images });
+  const mainImage = req.files.mainImage[0].filename;
+  const images = req.files.images ? req.files.images.map(file => file.filename) : []; 
+  const newProduct = await Product.create({ ...req.body, images,mainImage });
   res.status(201).json({
     status: "success",
     data: newProduct,
@@ -41,8 +42,9 @@ export const addProduct = catchAsync(async (req, res, next) => {
 
 export const updetByIdProduct = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const images = req?.files?.map((file) => file?.filename);
-  const product = await Product.findByIdAndUpdate(id, req.body, images, {
+  const mainImage = req.files.mainImage[0].filename;
+  const images = req.files.images ? req.files.images.map(file => file.filename) : []; 
+  const product = await Product.findByIdAndUpdate(id, req.body, images,mainImage, {
     new: true,
   });
   res.status(201).json({

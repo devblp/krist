@@ -8,24 +8,35 @@ import { creatNotification } from "./notificationCn.js";
 
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
+
+  // Check if user exists
   const user = await User.findOne({ email });
-  const hashPassword = bcryptjs.compareSync(password, user.password);
-  if (!user || !hashPassword) {
+  if (!user) {
     return res.status(401).json({ message: "Invalid email or password" });
   }
+
+  // Check if the password matches
+  const isPasswordCorrect = await bcryptjs.compare(password, user.password);
+  if (!isPasswordCorrect) {
+    return res.status(401).json({ message: "Invalid email or password" });
+  }
+
+  // Create JWT token with expiration time (e.g., 1 hour)
   const token = jwt.sign(
     { id: user._id, role: user.role, loginComponent: false, phone: user.phone },
-    process.env.JWT_SECRET
+    process.env.JWT_SECRET,
+    { expiresIn: '1h' }  // Set token to expire in 1 hour
   );
+
+  // Return success response with token
   return res.status(200).json({
     status: "success",
-    message: "login successfully",
+    message: "Login successfully",
     data: {
       token,
     },
   });
 });
-
 export const signup = catchAsync(async (req, res, next) => {
   const { password, role = "user", ...others } = req.body;
   const hashedPassword = bcryptjs.hashSync(password, 10);

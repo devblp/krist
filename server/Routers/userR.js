@@ -1,11 +1,11 @@
 import express from "express"
-import isAdmin from "../Middleware/isAdmin.js"
+import { checkAdmin } from "../Middleware/checkAdmin.js"
 import { getAllUser, getOneUser, updateUser } from "../Controllers/userCn.js"
 
 const userRouter = express.Router()
 
-userRouter.route("/").get(isAdmin,getAllUser)
-userRouter.route("/:id").get(isAdmin,getOneUser).patch(updateUser)
+userRouter.route("/").get(checkAdmin,getAllUser)
+userRouter.route("/:id").get(checkAdmin,getOneUser).patch(updateUser)
 
 
 
