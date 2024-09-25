@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import HandleError from "../Utils/handleError.js";
 import User from "../Models/userM.js";
+
 // Middleware to check if the user is an authenticated admin
 export const checkAdmin = async (req, res, next) => {
   let token;
@@ -25,7 +26,7 @@ export const checkAdmin = async (req, res, next) => {
 
   try {
     // Verify the token using the secret key
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Find the user by ID from the decoded token
     const currentUser = await User.findById(decoded.id);
