@@ -1,10 +1,34 @@
-import React from "react";
-import Image from "next/image";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import CardCategori from "@/components/CardCategori";
 import CardProduct from "@/components/CardProduct";
 import CommentCard from "@/components/CommentCard";
 
 export default function Home() {
+  const [a, setA] = useState();
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("http://localhost:7000/api/v1/categorys", {
+          method: "GET",
+        });
+        const deta = await res.json();
+        setA(deta.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+  const cart = a?.map((e, index) => {
+    return (
+      <CardCategori
+        key={index}
+        image={`http://localhost:7000/${e?.image}`}
+        name={e.name}
+      />
+    );
+  });
   return (
     <>
       <div className=" mx-10 mb-20">
@@ -30,12 +54,7 @@ export default function Home() {
       <div className="px-40">
         <div className="mb-32">
           <h5 className="text-[30px] py-5">Shop by Vategories</h5>
-          <div className="flex justify-center items-center gap-20 ">
-            <CardCategori />
-            <CardCategori />
-            <CardCategori />
-            <CardCategori />
-          </div>
+          <div className="flex justify-center items-center gap-20 ">{cart}</div>
         </div>
         <div className="mb-20">
           <h5 className="text-[30px] py-5 text-center">Our Bestseller</h5>
