@@ -23,7 +23,7 @@ export const login = catchAsync(async (req, res, next) => {
 
   // Create JWT token with expiration time (e.g., 1 hour)
   const token = jwt.sign(
-    { id: user._id, role: user.role, loginComponent: false, phone: user.phone },
+    { id: user._id, role: user.role, phone: user.phone ,email:user.email },
     process.env.JWT_SECRET,
     { expiresIn: '1h' }  // Set token to expire in 1 hour
   );
@@ -46,7 +46,6 @@ export const signup = catchAsync(async (req, res, next) => {
     message: "register successfully",
   });
 });
-
 export const forgotPassword = catchAsync(async (req, res, next) => {
   const { phone } = req.body;
   const user = await User.findOne({ phone });
@@ -59,7 +58,6 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
     message: "send auth code successfully",
   });
 });
-
 export const checkCode = catchAsync(async (req, res, next) => {
   const { phone, code } = req.body;
   const user = await User.findOne({ phone });
@@ -68,8 +66,9 @@ export const checkCode = catchAsync(async (req, res, next) => {
     return next(new HandleError("invalid code", 404));
   }
   const token = jwt.sign(
-    { id: user._id, role: user.role, loginComplete: true },
-    process.env.JWT_SECRET
+    { id: user._id, role: user.role, phone: user.phone ,email:user.email },
+    process.env.JWT_SECRET,
+    { expiresIn: '1h' }  // Set token to expire in 1 hour
   );
   return res.status(200).json({
     status: "success",
@@ -77,7 +76,6 @@ export const checkCode = catchAsync(async (req, res, next) => {
     data: token,
   });
 });
-
 export const newPassword = catchAsync(async (req, res, next) => {
   const { id } = jwt.verify(
     req.headers.authorization.split(" ")[1],
