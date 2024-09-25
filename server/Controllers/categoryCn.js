@@ -26,7 +26,6 @@ export const getOneCategory = catchAsync(async (req, res, next) => {
         data: category
     })
 });
-
 export const addCategory = catchAsync(async (req, res, next) => {
   const image = req?.file?.filename || "";
   const newCategory = await Category.create({ image, ...req.body });
@@ -35,7 +34,6 @@ export const addCategory = catchAsync(async (req, res, next) => {
     data: newCategory,
   });
 });
-
 export const deleteCategory = catchAsync(async (req, res, next) => {
     const deleteCategory = await Category.findByIdAndDelete(req.params.id);
     if (deleteCategory.image) {
