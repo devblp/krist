@@ -7,7 +7,6 @@ export default function ProductPage({params}) {
     <div className="container mx-auto p-6">
         <h1>product id : {productid} </h1>
       <div className="flex flex-col lg:flex-row">
-        {/* بخش تصاویر محصول */}
         <div className="lg:w-1/2">
           <Image src="/images/dress-main.png" alt="Product" width={500} height={600} />
           <div className="flex mt-4 space-x-2">
