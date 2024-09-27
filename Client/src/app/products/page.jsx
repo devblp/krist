@@ -4,24 +4,6 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 export default function Products() {
-  const [filters, setFilters] = useState({
-    category: '',
-    priceRange: [0, 2000],
-    color: '',
-    size: '',
-  });
-
-  const products = [
-    { id: 1, name: 'Allen Solly', price: 80, originalPrice: 100, image: '/images/product1.png', category: 'Bags', color: 'Red', size: 'L' },
-    { id: 2, name: 'Louis Philippe Sport', price: 50, originalPrice: 65, image: '/images/product2.png', category: 'Men', color: 'Blue', size: 'M' },
-    { id: 2, name: 'Louis Philippe Sport', price: 50, originalPrice: 65, image: '/images/product2.png', category: 'Men', color: 'Blue', size: 'M' },
-    { id: 2, name: 'Louis Philippe Sport', price: 50, originalPrice: 65, image: '/images/product2.png', category: 'Men', color: 'Blue', size: 'M' },
-    { id: 2, name: 'Louis Philippe Sport', price: 50, originalPrice: 65, image: '/images/product2.png', category: 'Men', color: 'Blue', size: 'M' },
-    { id: 2, name: 'Louis Philippe Sport', price: 50, originalPrice: 65, image: '/images/product2.png', category: 'Men', color: 'Blue', size: 'M' },
-    { id: 2, name: 'Louis Philippe Sport', price: 50, originalPrice: 65, image: '/images/product2.png', category: 'Men', color: 'Blue', size: 'M' },
-    { id: 2, name: 'Louis Philippe Sport', price: 50, originalPrice: 65, image: '/images/product2.png', category: 'Men', color: 'Blue', size: 'M' },
-    // ... Add more products here
-  ];
 
   const filteredProducts = products.filter((product) => {
     return (
