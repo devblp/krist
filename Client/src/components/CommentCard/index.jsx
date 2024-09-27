@@ -15,7 +15,7 @@ export default function CommentCard() {
             temporibus. Molestiae, illum dolore?
           </p>
         </div>
-        <div className=" flex items-center gap-4">
+        <div className=" flex items-center gap-3">
           <div>
             <img src="/profile.jpg" alt="profile" className=" rounded-full w-[30px] h-[30px]" />
           </div>
