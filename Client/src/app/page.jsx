@@ -7,6 +7,7 @@ import CommentCard from "@/components/CommentCard";
 
 export default function Home() {
   const [a, setA] = useState();
+  const [products, setProduct] = useState();
   useEffect(() => {
     (async () => {
       try {
@@ -15,6 +16,9 @@ export default function Home() {
         });
         const deta = await res.json();
         setA(deta.data);
+        const products = await fetch("http://localhost:7000/api/v1/products");
+        const dataProducts = await products.json();
+        setProduct(dataProducts.data);
       } catch (error) {
         console.log(error);
       }
@@ -29,6 +33,32 @@ export default function Home() {
       />
     );
   });
+  const product = products?.map((e, index) => {
+    return (
+      <CardProduct
+        key={index}
+        image={`http://localhost:7000/${e?.mainImage}`}
+        price={e.price}
+        name={e.title}
+      />
+    );
+  });
+  const targetDate = new Date("December 31, 2024 23:59:59").getTime();
+  const [day,setDay] = useState()
+  const [hours,setHours] = useState()
+  const [minutes , setMinutes] = useState()
+  const [seconds, setSeconds] = useState()
+ setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+    setDay(Math.floor(distance / (1000 * 60 * 60 * 24)))
+    setHours(Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    ))
+    setMinutes(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)))
+    setSeconds(Math.floor((distance % (1000 * 60)) / 1000))
+  }, 1000);
+
   return (
     <>
       <div className=" mx-10 mb-20">
@@ -54,17 +84,12 @@ export default function Home() {
       <div className="px-40">
         <div className="mb-32">
           <h5 className="text-[30px] py-5">Shop by Vategories</h5>
-          <div className="flex justify-center items-center gap-20 ">{cart}</div>
+          <div className="flex justify-center items-center gap-10 ">{cart}</div>
         </div>
         <div className="mb-20">
           <h5 className="text-[30px] py-5 text-center">Our Bestseller</h5>
-          <div className="flex flex-wrap justify-center items-center gap-16 ">
-            <CardProduct />
-            <CardProduct />
-            <CardProduct />
-            <CardProduct />
-            <CardProduct />
-            <CardProduct />
+          <div className="flex flex-wrap justify-center items-center gap-10 ">
+            {product}
           </div>
         </div>
         <div className="flex mb-20 justify-around">
@@ -80,7 +105,7 @@ export default function Home() {
             <div className="flex gap-5">
               <div className="border-2 border-black rounded-lg flex flex-col items-center p-3">
                 <div>
-                  <span className="text-[24px] font-bold">120</span>
+                  <span className="text-[24px] font-bold">{day}</span>
                 </div>
                 <div>
                   <span>Days</span>
@@ -88,7 +113,7 @@ export default function Home() {
               </div>
               <div className="border-2 border-black rounded-lg flex flex-col items-center p-3">
                 <div>
-                  <span className="text-[24px] font-bold">18</span>
+                  <span className="text-[24px] font-bold">{hours}</span>
                 </div>
                 <div>
                   <span>Hours</span>
@@ -96,7 +121,7 @@ export default function Home() {
               </div>
               <div className="border-2 border-black rounded-lg flex flex-col items-center p-3">
                 <div>
-                  <span className="text-[24px] font-bold">15</span>
+                  <span className="text-[24px] font-bold">{minutes}</span>
                 </div>
                 <div>
                   <span>Mins</span>
@@ -104,7 +129,7 @@ export default function Home() {
               </div>
               <div className="border-2 border-black rounded-lg flex flex-col items-center p-3">
                 <div>
-                  <span className="text-[24px] font-bold">10</span>
+                  <span className="text-[24px] font-bold">{seconds}</span>
                 </div>
                 <div>
                   <span>Secs</span>
