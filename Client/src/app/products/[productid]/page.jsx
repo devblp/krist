@@ -17,7 +17,6 @@ export default function ProductPage({params}) {
           </div>
         </div>
 
-        {/* بخش اطلاعات محصول */}
         <div className="lg:w-1/2 lg:pl-8 mt-6 lg:mt-0">
           <h1 className="text-3xl font-bold">YK Disney</h1>
           <p className="text-gray-700 mt-2">Girls Pink Moana Printed Dress</p>
@@ -57,7 +56,7 @@ export default function ProductPage({params}) {
         </div>
       </div>
 
-      {/* بخش توضیحات */}
+
       <div className="mt-8">
         <h2 className="text-xl font-semibold">Descriptions</h2>
         <p className="text-gray-700 mt-2">
@@ -65,7 +64,7 @@ export default function ProductPage({params}) {
         </p>
       </div>
 
-      {/* بخش محصولات مرتبط */}
+
       <div className="mt-8">
         <h2 className="text-xl font-semibold">Related Products</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
