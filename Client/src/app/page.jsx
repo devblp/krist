@@ -6,25 +6,31 @@ import CardProduct from "@/components/CardProduct";
 import CommentCard from "@/components/CommentCard";
 
 export default function Home() {
-  const [a, setA] = useState();
+  const [categorys, setA] = useState();
   const [products, setProduct] = useState();
+  const [comments, setComments] = useState();
+  const [day, setDay] = useState();
+  const [hours, setHours] = useState();
+  const [minutes, setMinutes] = useState();
+  const [seconds, setSeconds] = useState();
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("http://localhost:7000/api/v1/categorys", {
-          method: "GET",
-        });
-        const deta = await res.json();
-        setA(deta.data);
+        const categorys = await fetch("http://localhost:7000/api/v1/categorys");
+        const dataCategorys = await categorys.json();
+        setA(dataCategorys.data);
         const products = await fetch("http://localhost:7000/api/v1/products");
         const dataProducts = await products.json();
         setProduct(dataProducts.data);
+        const comments = await fetch("http://localhost:7000/api/v1/comment");
+        const dataComments = await comments.json();
+        setComments(dataComments.data);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
-  const cart = a?.map((e, index) => {
+  const cart = categorys?.map((e, index) => {
     return (
       <CardCategori
         key={index}
@@ -43,20 +49,24 @@ export default function Home() {
       />
     );
   });
+  const comment = comments?.map((e, index) => {
+    return (
+      <CommentCard
+        key={index}
+        name={e.name}
+        titel={e.titel}
+        comment={e.comment}
+      />
+    );
+  });
   const targetDate = new Date("December 31, 2024 23:59:59").getTime();
-  const [day,setDay] = useState()
-  const [hours,setHours] = useState()
-  const [minutes , setMinutes] = useState()
-  const [seconds, setSeconds] = useState()
- setInterval(() => {
+  setInterval(() => {
     const now = new Date().getTime();
     const distance = targetDate - now;
-    setDay(Math.floor(distance / (1000 * 60 * 60 * 24)))
-    setHours(Math.floor(
-      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    ))
-    setMinutes(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)))
-    setSeconds(Math.floor((distance % (1000 * 60)) / 1000))
+    setDay(Math.floor(distance / (1000 * 60 * 60 * 24)));
+    setHours(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    setMinutes(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+    setSeconds(Math.floor((distance % (1000 * 60)) / 1000));
   }, 1000);
 
   return (
@@ -157,11 +167,7 @@ export default function Home() {
       <div className="w-full bg-gray-100 p-10 h-[400px] ">
         <div className="mx-36">
           <h5 className="text-[30px] mb-10 text-center">Our Bestseller</h5>
-          <div className=" flex gap-10">
-            <CommentCard />
-            <CommentCard />
-            <CommentCard />
-          </div>
+          <div className=" flex gap-10">{comment}</div>
         </div>
       </div>
     </>
