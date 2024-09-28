@@ -27,8 +27,7 @@ export const addComment = catchAsync(async (req, res, next) => {
 });
 
 export const getProductComments = catchAsync(async (req, res, next) => {
-  const { productId } = req.params;
-  const comments = await Comment.find({ productId });
+  const comments = await Comment.find();
   return res.status(201).json({
     status: "success",
     data: comments,
