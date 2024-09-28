@@ -1,18 +1,15 @@
 import React from "react";
 
-export default function CommentCard() {
+export default function CommentCard({name,titel,comment}) {
   return (
     <>
       <div className=" bg-white w-[360px] h-[200px] p-5 flex flex-col gap-4 rounded-lg">
         <div>
-           <p>sssss</p>
+           <p>{titel}</p>
         </div>
         <div>
           <p className="text-[10px]">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores<br/>
-            delectus reiciendis expedita maiores totam error? A aut quo soluta,<br/>
-            vitae accusantium nobis consequuntur placeat iusto eveniet<br/>
-            temporibus. Molestiae, illum dolore?
+              {comment}
           </p>
         </div>
         <div className=" flex items-center gap-3">
@@ -20,8 +17,8 @@ export default function CommentCard() {
             <img src="/profile.jpg" alt="profile" className=" rounded-full w-[30px] h-[30px]" />
           </div>
           <div className="text-[10px]">
-            <p className="font-bold">sian nasibparst</p>
-            <p>Developer</p>
+            <p className="font-bold">{name}</p>
+            <p>admin</p>
           </div>
         </div>
       </div>
