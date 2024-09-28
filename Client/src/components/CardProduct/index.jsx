@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CardProduct({name,price,image}) {
+export default function CardProduct({name,price,image,category}) {
   return (
     <>
       <div>
@@ -9,9 +9,10 @@ export default function CardProduct({name,price,image}) {
         </div>
         <div>
           <h5 className="font-bold text-[18px]">{name}</h5>
-          <p className="text-[13px]"> brand</p>
+          <p className="text-[13px]"> {category}</p>
           <span className="text-[15px]">$ {price}</span>
         </div>
+        <button >add</button>
       </div>
     </>
   );
