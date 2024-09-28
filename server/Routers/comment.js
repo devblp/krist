@@ -4,7 +4,8 @@ import { addComment, deletComment, getProductComments } from "../Controllers/com
 
 const commentRouter = expres.Router()
 
-commentRouter.route("/:productId").get(getProductComments).post(addComment)
+commentRouter.route("/").get(getProductComments)
+commentRouter.route("/:productId").post(addComment)
 commentRouter.route("/:id").delete(checkAdmin,deletComment)
 
 
