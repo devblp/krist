@@ -1,6 +1,7 @@
+import Link from "next/link";
 import React from "react";
 
-export default function CardProduct({name,price,image,category}) {
+export default function CardProduct({name,price,image,category,id}) {
   return (
     <>
       <div>
@@ -12,7 +13,7 @@ export default function CardProduct({name,price,image,category}) {
           <p className="text-[13px]"> {category}</p>
           <span className="text-[15px]">$ {price}</span>
         </div>
-        <button >add</button>
+        <Link href={`/products/${id}`}> <button type="button">add card</button></Link>
       </div>
     </>
   );
