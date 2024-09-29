@@ -28,6 +28,7 @@ export default function Products() {
   const productCards = filteredProducts.map((e, index) => (
     <CardProduct
       key={index}
+      id={e._id}
       image={`http://localhost:7000/${e?.mainImage}`}
       price={e.price}
       name={e.title}
