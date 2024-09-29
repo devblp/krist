@@ -1,49 +1,39 @@
+"use client"
 
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 export default function ProductPage({params}) {
     const {productid} = params
+    const [product,setProduct]= useState()
+
+    useEffect(() => {
+      (async () => {
+        const response = await fetch(`http://localhost:7000/api/v1/products/${productid}?populate=categoryId`);
+        const data = await response.json();
+        setProduct(data.data)
+        console.log(data.data.categoryId[0]?.name)
+      })();
+    }, []);
   return (
     <div className="container mx-auto p-6">
         <h1>product id : {productid} </h1>
       <div className="flex flex-col lg:flex-row">
         <div className="lg:w-1/2">
-          <Image src="/images/dress-main.png" alt="Product" width={500} height={600} />
+          <img src={`http://localhost:7000/${product?.mainImage}`} alt="" />
           <div className="flex mt-4 space-x-2">
-            <Image src="/images/dress-thumb1.png" alt="Thumbnail" width={100} height={120} />
-            <Image src="/images/dress-thumb2.png" alt="Thumbnail" width={100} height={120} />
-            <Image src="/images/dress-thumb3.png" alt="Thumbnail" width={100} height={120} />
-            <Image src="/images/dress-thumb4.png" alt="Thumbnail" width={100} height={120} />
+            {product?.images?.map((e,index)=>{
+              return <img src={`http://localhost:7000/${e}`} alt="" key={index} width={"130px"} />
+            })}
           </div>
         </div>
 
         <div className="lg:w-1/2 lg:pl-8 mt-6 lg:mt-0">
-          <h1 className="text-3xl font-bold">YK Disney</h1>
-          <p className="text-gray-700 mt-2">Girls Pink Moana Printed Dress</p>
+          <h1 className="text-3xl font-bold">{product?.title}</h1>
+          <p className="text-gray-700 mt-2">{product?.categoryId[0]?.name}</p>
           <div className="flex items-center mt-2">
-            <span className="text-xl font-semibold">$80.00</span>
-            <span className="text-gray-500 line-through ml-2">$100.00</span>
-          </div>
-
-          <div className="mt-4">
-            <h3 className="text-md font-medium">Color</h3>
-            <div className="flex space-x-2 mt-2">
-              <button className="w-6 h-6 bg-red-500 rounded-full"></button>
-              <button className="w-6 h-6 bg-green-500 rounded-full"></button>
-              <button className="w-6 h-6 bg-blue-500 rounded-full"></button>
-              <button className="w-6 h-6 bg-yellow-500 rounded-full"></button>
-            </div>
-          </div>
-
-          <div className="mt-4">
-            <h3 className="text-md font-medium">Size</h3>
-            <div className="flex space-x-2 mt-2">
-              <button className="px-4 py-2 border rounded">S</button>
-              <button className="px-4 py-2 border rounded">M</button>
-              <button className="px-4 py-2 border rounded">L</button>
-              <button className="px-4 py-2 border rounded">XL</button>
-              <button className="px-4 py-2 border rounded">XXL</button>
-            </div>
+            <span className="text-xl font-semibold">${product?.price}</span>
+            {/* <span className="text-gray-500 line-through ml-2">$100.00</span> */}
           </div>
 
           <div className="flex mt-4 items-center space-x-2">
@@ -60,7 +50,7 @@ export default function ProductPage({params}) {
       <div className="mt-8">
         <h2 className="text-xl font-semibold">Descriptions</h2>
         <p className="text-gray-700 mt-2">
-          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout...
+          {product?.description}
         </p>
       </div>
 
