@@ -22,7 +22,7 @@ export const getAllProduct = catchAsync(async (req, res, next) => {
 
 export const getIdProduct = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const product = await Product.findById(id);
+  const product = await Product.findById(id).populate("categoryId");
   if (!product)
     return next(new HandleError("The product is not available!", 404));
   res.status(200).json({
