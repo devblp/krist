@@ -31,6 +31,7 @@ export default function Home() {
     })();
   }, []);
   
+
   
   const cart = categorys?.map((e, index) => {
     return (
